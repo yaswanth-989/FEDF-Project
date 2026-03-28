@@ -27,7 +27,7 @@ function App() {
     setUser(null);
   };
 
-  // ✅ Dropdown logic
+  
   const [open, setOpen] = useState(false);
   const menuRef = useRef();
 
