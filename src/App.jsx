@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import { Routes, Route, Link, Navigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import Signup from "./Signup";
 import Signin from "./Signin";
@@ -27,7 +27,6 @@ function App() {
     setUser(null);
   };
 
-  
   const [open, setOpen] = useState(false);
   const menuRef = useRef();
 
@@ -42,7 +41,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <>
       <div className="navbar">
         <h2>DarkStore</h2>
 
@@ -71,7 +70,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 
