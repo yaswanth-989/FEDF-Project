@@ -1,0 +1,95 @@
+/* RESET */
+html,body{
+  margin:0;
+  height:100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size:16px;   /* ✅ FIXED */
+}
+
+#root{
+  height:100%;
+}
+
+/* NAVBAR */
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 40px;
+  background:#111;
+  color:white;
+}
+
+.nav-right{
+  display:flex;
+  gap:25px;
+  align-items:center;
+}
+
+.navbar a{
+  text-decoration:none;
+  color:white;
+  font-size:16px;
+  transition:0.3s;
+}
+
+.navbar a:hover{
+  color:#18e0b5;
+}
+
+/* CART */
+.cart-link{
+  position:relative;
+  font-size:18px;
+}
+
+.cart-link span{
+  position:absolute;
+  top:-8px;
+  right:-12px;
+  background:#18e0b5;
+  color:black;
+  border-radius:50%;
+  padding:2px 6px;
+  font-size:12px;
+}
+
+/* PROFILE */
+.profile-menu{
+  position:relative;
+  cursor:pointer;
+}
+
+/* ✅ HIDDEN BY DEFAULT */
+.dropdown{
+  position:absolute;
+  top:35px;
+  right:0;
+  background:#1e1e1e;
+  display:none;
+  flex-direction:column;
+  border-radius:8px;
+  min-width:130px;
+  z-index:1000;   /* ✅ IMPORTANT */
+}
+
+/* ✅ SHOW WHEN ACTIVE */
+.profile-menu.active .dropdown{
+  display:flex;
+}
+
+/* DROPDOWN ITEMS */
+.dropdown a,
+.dropdown button{
+  padding:10px;
+  color:white;
+  background:none;
+  border:none;
+  text-align:left;
+  cursor:pointer;
+}
+
+.dropdown a:hover,
+.dropdown button:hover{
+  background:#333;
+}
