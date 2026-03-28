@@ -7,10 +7,18 @@ import Profile from "./Profile";
 import Cart from "./Cart";
 
 function App() {
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user"))
-  );
 
+  // ✅ USER STATE (SAFE LOAD)
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const savedUser = JSON.parse(localStorage.getItem("user"));
+    setUser(savedUser);
+    setLoading(false);
+  }, []);
+
+  // ✅ CART STATE (PERSISTENT)
   const [cart, setCart] = useState(() => {
     const saved = localStorage.getItem("cart");
     return saved ? JSON.parse(saved) : [];
@@ -27,6 +35,7 @@ function App() {
     setUser(null);
   };
 
+  // ✅ DROPDOWN
   const [open, setOpen] = useState(false);
   const menuRef = useRef();
 
@@ -36,12 +45,23 @@ function App() {
         setOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // ✅ PREVENT WHITE SCREEN
+  if (loading) {
+    return (
+      <div style={{ color: "white", textAlign: "center", marginTop: "100px" }}>
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <>
+      {/* NAVBAR */}
       <div className="navbar">
         <h2>DarkStore</h2>
 
@@ -52,7 +72,10 @@ function App() {
             🛒 <span>{totalItems}</span>
           </Link>
 
-          <div ref={menuRef} className={`profile-menu ${open ? "active" : ""}`}>
+          <div
+            ref={menuRef}
+            className={`profile-menu ${open ? "active" : ""}`}
+          >
             <span onClick={() => setOpen(!open)}>👤</span>
 
             <div className="dropdown">
@@ -63,8 +86,19 @@ function App() {
         </div>
       </div>
 
+      {/* ROUTES */}
       <Routes>
-        <Route path="/" element={user ? <Home cart={cart} setCart={setCart} /> : <Navigate to="/signin" />} />
+        <Route
+          path="/"
+          element={
+            user ? (
+              <Home cart={cart} setCart={setCart} />
+            ) : (
+              <Navigate to="/signin" />
+            )
+          }
+        />
+
         <Route path="/signup" element={<Signup setUser={setUser} />} />
         <Route path="/signin" element={<Signin setUser={setUser} />} />
         <Route path="/profile" element={<Profile />} />
